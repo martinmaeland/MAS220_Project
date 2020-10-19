@@ -108,15 +108,13 @@ void loop() {
     
 }
 
-
-
 // FUNCTIONS
 
 void moveElevator(int* currentFloor, int newFloor){
     Serial.print("Going to floor ");
     Serial.println(newFloor);
     digitalWrite(dcMotor[0], LOW);
-    int elevatorSpeed = 1000;
+    int elevatorSpeed = 1000; // ms from one floor to next
     int motorSpeed = 150;
 
     // SIMULATING ELEVATOR MOVING
