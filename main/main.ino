@@ -3,7 +3,7 @@
 
 // DEFINING PINS
 int ledPin[] = {42, 43, 44, 45, 46, 47, 48, 49};
-int buttonPin[] = {22, 23, 24, 25, 26, 27, 28, 29};
+int buttonPin[] = {22, 23, 24, 25, 26, 27, 28, 29}; // {0 ... 8}
 int dcMotor[3] = {5, 6, 7}; // Decay, Phase, Enable
 int mechEncButton = 2;
 
