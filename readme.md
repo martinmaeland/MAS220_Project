@@ -1,7 +1,7 @@
 # MAS220_Project
 
 ## Description
-With All-In-One servolab, create an elevator with the given requirements. 
+With All-In-One servolab, create an elevator-simulator with the given requirements. 
 
 Requirements and documentation is in resources directory.
 
