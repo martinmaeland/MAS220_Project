@@ -8,5 +8,5 @@ Requirements and documentation is in resources directory.
 ## TODO
 - Fix display to show correct spelling on second line.
 - Make steppermotor work as door opening and closing.
-- Get motor posision using encoder.
+- Get motor posision using encoder. [DONE]
 - Implement PID-controller for servo-motor.

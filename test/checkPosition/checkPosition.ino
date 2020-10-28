@@ -2,12 +2,12 @@
 // DECLARING PINS
 const int buttonPin[] = {22, 23, 24, 25, 26, 27, 28, 29}; // {0 ... 8}
 const int dcMotor[3] = {5, 6, 7}; // Decay, Phase, Enable
-const int encA = 21;
-const int encB = 22; 
+const int encA = 20;
+const int encB = 21; 
 
 // DEFINE VARIABLES
-double theta = 0;
-int state = 0;
+volatile double theta = 0.0;
+bool motorDir; // false is down, true is up
 
 void setup() {
 
@@ -27,26 +27,45 @@ void setup() {
 
   Serial.begin(9600);
 
-  state = digitalRead(encB);
+  attachInterrupt(digitalPinToInterrupt(encA), encA_func, RISING);
+  attachInterrupt(digitalPinToInterrupt(encB), encB_func, RISING);
+
 }
 
 void loop() {
 
   int a = digitalRead(encA);
   int b = digitalRead(encB);
+  int btnUpPressed = digitalRead(buttonPin[0]);
+  int btnDownPressed = digitalRead(buttonPin[7]);
 
   digitalWrite(dcMotor[0], LOW);
-  digitalWrite(dcMotor[1], HIGH);
-  analogWrite(dcMotor[2], 30);
   
-  if (state == 1 && b == 0) {
-    state = 0;
-  } else if (state == 0 && b == 1) {
-    theta = theta + 22.5;
-    state = 1;
+  if (btnUpPressed == 1) {
+    motorDir = true;
+    digitalWrite(dcMotor[1], HIGH);
+    analogWrite(dcMotor[2], 50);
+  } else if (btnDownPressed == 1) {
+    motorDir = false;
+    digitalWrite(dcMotor[1], LOW);
+    analogWrite(dcMotor[2], 50);
+  } else {
+    analogWrite(dcMotor[2], 0);
   }
   
   Serial.print("Theta: ");
   Serial.println(theta);
 
+}
+
+
+void encA_func(){
+  if (motorDir == true) {
+    theta += (22.5/131.0);
+  } else if (motorDir == false) {
+    theta -= (22.5/131.0);
+  }
+}
+void encB_func() {
+  // something else
 }
