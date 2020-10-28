@@ -6,7 +6,9 @@ With All-In-One servolab, create an elevator with the given requirements.
 Requirements and documentation is in resources directory.
 
 ## All-in-one servolab
-![something](https://github.com/martinmaeland/MAS220_Project/blob/master/media/servolab.jpg&s=200)
+![](https://github.com/martinmaeland/MAS220_Project/blob/master/media/servolab.jpg)
+
+![]<img src="https://github.com/martinmaeland/MAS220_Project/blob/master/media/servolab.jpg" alt="alt text" width="100" height="100">
 
 ## TODO
 - Fix display to show correct spelling on second line.
