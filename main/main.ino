@@ -10,32 +10,32 @@
 
 void setup() {
 
-  // INIT LEDS
+  // DEFINE LEDS
   for (int i = 8; i > 0; i--){
     pinMode(ledPin[i-1], OUTPUT);
-    }
+  }
 
-  // INIT BUTTONS
+  // DEFINE BUTTONS
   for (int i = 0; i < 8; i++){
     pinMode(buttonPin[i], INPUT);
-    }
+  }
 
-  // INIT DC MOTOR PINMODES
-  for (int i=0; i<3; i++)
-  {
+  // DEFINE DC MOTOR PINMODES
+  for (int i=0; i<3; i++) {
     pinMode(dcMotor[i], OUTPUT);
   }
   
-  // INIT ENCODER BUTTON
+  // DEFINE ENCODER BUTTON
   pinMode(mechEncButton, INPUT);
 
-  // INIT LCD
+  // DEFINE LCD
   pinMode(4, OUTPUT);
   analogWrite(4, 255);
   lcd.begin(16, 2); // set up the LCD's number of columns and rows:
   lcd.print("Current floor ");
   lcd.print(currentFloor);
-  
+
+  // Begin serial communication
   Serial.begin(9600);
 }
 
