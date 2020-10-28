@@ -3,6 +3,7 @@
 #include "arduino.h"
 #include "variables.h"
 
+// Function that moves elevator to new floor and updates current floor
 void moveElevator(int* currentFloor, int newFloor){
     Serial.print("Going to floor ");
     Serial.println(newFloor);
@@ -37,7 +38,7 @@ void moveElevator(int* currentFloor, int newFloor){
     Serial.println(*currentFloor);
 }
 
-
+// Function that awaits new floor input
 void newFloorFunc(int* newFloorPnt){
   int chosenFloor = 100;
   Serial.println("What floor do you desire?");
@@ -49,4 +50,18 @@ void newFloorFunc(int* newFloorPnt){
     }
   }
   *newFloorPnt = chosenFloor;
+}
+
+// Function for interrupt encA
+void encAFunc(){
+  if (motorDir == true) {
+    theta += (22.5/131.0);
+  } else if (motorDir == false) {
+    theta -= (22.5/131.0);
+  }
+}
+
+// Function for interrupt encB
+void encBFunc() {
+  // something
 }

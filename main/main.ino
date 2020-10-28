@@ -20,10 +20,12 @@ void setup() {
     pinMode(buttonPin[i], INPUT);
   }
 
-  // DEFINE DC MOTOR PINMODES
+  // DEFINE DC MOTOR AND MOTOR ENCODER PINMODES
   for (int i=0; i<3; i++) {
     pinMode(dcMotor[i], OUTPUT);
   }
+  pinMode(encA, INPUT);
+  pinMode(encB, INPUT);
   
   // DEFINE ENCODER BUTTON
   pinMode(mechEncButton, INPUT);
@@ -37,6 +39,10 @@ void setup() {
 
   // Begin serial communication
   Serial.begin(9600);
+
+  // INTERRUPTS
+  attachInterrupt(digitalPinToInterrupt(encA), encAFunc, RISING);
+  attachInterrupt(digitalPinToInterrupt(encB), encBFunc, RISING);
 }
 
 
