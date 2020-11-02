@@ -1,6 +1,6 @@
 // **** DEFINING FUNCTIONS ****
 
-#include "arduino.h"
+#include <arduino.h>
 
 int joyDirection(double joyRead) {
   if (joyRead <= 350){
