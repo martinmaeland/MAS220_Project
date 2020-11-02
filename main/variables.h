@@ -7,8 +7,6 @@
 const int ledPin[] = {42, 43, 44, 45, 46, 47, 48, 49};
 const int buttonPin[] = {22, 23, 24, 25, 26, 27, 28, 29}; // {0 ... 8}
 const int mechEncButton = 2;
-const int encA = 20; // motor encoder a
-const int encB = 21; // motor encoder b
 
 // Floor variables
 int currentFloor = 0;
@@ -19,7 +17,7 @@ bool* servicePnt = &service;
 
 // Motor variables
 volatile double theta = 0.0; // DC motor position
-bool motorDir; // false is down, true is up
+//bool motorDir; // false is down, true is up
 
 // Door setup
 enum elvDoor {OPEN, HALF, CLOSED};

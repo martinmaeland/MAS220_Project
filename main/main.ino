@@ -9,12 +9,15 @@
 #include "functions.h"
 #include "motor.h"
 
-// functions
-void encoderA(Motor motor);
-void PID(double sp, Motor motor);
-
 // Create motor
 Motor motor;
+
+// Functions
+void PID(double sp, Motor motor);
+
+void funcA() {
+  motor.encoderA();
+}
 
 void setup() {
 
@@ -23,14 +26,11 @@ void setup() {
     pinMode(ledPin[i-1], OUTPUT);
   }
 
+
   // DEFINE BUTTONS
   for (int i = 0; i < 8; i++){
     pinMode(buttonPin[i], INPUT);
   }
-
-  // DEFINE DC MOTOR AND MOTOR ENCODER PINMODES
-  pinMode(encA, INPUT);
-  pinMode(encB, INPUT);
   
   // DEFINE ENCODER BUTTON
   pinMode(mechEncButton, INPUT);
@@ -46,7 +46,7 @@ void setup() {
   Serial.begin(9600);
 
   // INTERRUPT
-  attachInterrupt(digitalPinToInterrupt(encA), encoderA, RISING);
+  attachInterrupt(digitalPinToInterrupt(motor.encA), funcA, RISING);
 }
 
 
@@ -70,38 +70,21 @@ void loop() {
 
   // TEST CODE
 
-  PID(360, motor);
-
+  while (true) {
+    PID(50, motor);
+  }
 
   /*
-  if (service == true){
-
-    moveElevator(&currentFloor, customerFloor);
-    lcd.setCursor(0,1);
-    lcd.print("Choose floor");
-    
-    newFloorFunc(&newFloor);
-    lcd.setCursor(0,1);
-    lcd.print("Going to ");
-    lcd.print(newFloor);
-    
-    moveElevator(&currentFloor, newFloor);
-    lcd.setCursor(0,1);
-    lcd.print("Arrived");
-    delay(3000);
-    lcd.setCursor(0,1);
-    lcd.print("");
-
-    service = false;
-    }   
+  while(true){
+    if (digitalRead(buttonPin[0]) == true) {
+      motor.up(10);
+    } else if (digitalRead(buttonPin[1]) == true){
+      motor.down(10);
+    } else {
+      motor.stop();
+    }
+  
+    Serial.println(motor.getPos());
   }
   */
-}
-
-void encoderA(){
-  if (motor.dir == true) {
-    motor.pos += (22.5/131.0);
-  } else if (motor.dir == false) {
-    motor.pos -= (22.5/131.0);
-  }
 }
