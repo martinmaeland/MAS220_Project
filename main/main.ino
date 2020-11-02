@@ -70,7 +70,7 @@ void loop() {
 
   // TEST CODE
 
-  void PID(360, motor);
+  PID(360, motor);
 
 
   /*
