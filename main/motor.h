@@ -10,7 +10,7 @@ class Motor {
   public:
   const int encA = 20; // motor encoder a
   volatile double pos = 0; // position in degrees
-  int dir = 0; // true is up, false is down
+  volatile bool dir; // true is up, false is down
  
   Motor();
   void up(double); // speed input

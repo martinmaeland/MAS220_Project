@@ -39,8 +39,10 @@ void PID(double sp, Motor motor) {
 
   if (u > 0) {
     motor.up(u);
+    motor.dir = true;
   } else if (u < 0) {
     motor.down(abs(u));
+    motor.dir = false; 
   } else {
     motor.stop();
   }
