@@ -1,8 +1,6 @@
 // **** DECLARING FUNCTIONS ****
 
-#include "arduino.h"
+#include <arduino.h>
 
-void moveElevator(int* currentFloor, int newFloor);
+int joyDirection(double joyRead);
 void newFloorFunc(int* newFloorPnt);
-void encAFunc();
-void encBFunc();

@@ -25,21 +25,5 @@ void setup() {
 }
 
 void loop() {
-
-  t = millis();
-  dt = t - t0; // calculate change in time since last loop
-
-  if (digitalRead(b1) == 1) {
-    digitalWrite(dcMotor[1], HIGH);
-    analogWrite(dcMotor[2], 100);
-  } else if (digitalRead(b2) == 1) {
-    digitalWrite(dcMotor[1], LOW);
-    analogWrite(dcMotor[2], 100);
-  } else {
-    analogWrite(dcMotor[2], 0);
-  }
-
-  PID(1, 1, 1, 20, 10);
-
-  t0 = t;
+  PID(20, 10);
 }
