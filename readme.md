@@ -10,6 +10,6 @@ Requirements and documentation is in resources directory.
 
 ## TODO
 - [ ] Fix display to show correct spelling on second line.
-- [ ] Make steppermotor work as door opening and closing.
+- [x] Make steppermotor work as door opening and closing.
 - [x] Get motor posision using encoder.
 - [ ] Implement PID-controller for servo-motor.
