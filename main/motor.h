@@ -18,5 +18,6 @@ class Motor {
   void stop(void);
   double getPos(void);
   void printPos(void);
-  void encoderA();  
+  void encoderA(void);
+  void encoderB(void);
 };

@@ -11,6 +11,7 @@ Motor::Motor(void) {
 }
 
 void Motor::up(double spd) {
+  dir = 1;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], HIGH);
   analogWrite(dcMotor[2], spd);
@@ -18,12 +19,14 @@ void Motor::up(double spd) {
 }
 
 void Motor::down(double spd) {
+  dir = -1;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], LOW);
   analogWrite(dcMotor[2], spd);
 }
 
 void Motor::stop(void) {
+  dir = 0;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], HIGH);
   analogWrite(dcMotor[2], 0);
@@ -37,13 +40,14 @@ void Motor::printPos(void) {
   Serial.println(pos);
 }
 
-void Motor::encoderA(){
+void Motor::encoderA(void){
   if (dir == 1) {
     pos += (22.5/131.0);
   } else if (dir == -1) {
     pos -= (22.5/131.0);
+  }
 }
 
-void Motor::encoderB() {
-  
+void Motor::encoderB(void) {
+  // test
 }

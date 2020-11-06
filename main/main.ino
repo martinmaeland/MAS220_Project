@@ -13,7 +13,8 @@
 Motor motor;
 
 // Functions
-void PID(double sp, Motor motor);
+void initPid();
+void PID(double sp, Motor& motor);
 
 void funcA() {
   motor.encoderA();
@@ -25,7 +26,6 @@ void setup() {
   for (int i = 8; i > 0; i--){
     pinMode(ledPin[i-1], OUTPUT);
   }
-
 
   // DEFINE BUTTONS
   for (int i = 0; i < 8; i++){
@@ -47,6 +47,8 @@ void setup() {
 
   // INTERRUPT
   attachInterrupt(digitalPinToInterrupt(motor.encA), funcA, RISING);
+
+  delay(1000);
 }
 
 
@@ -68,23 +70,9 @@ void loop() {
     service = true;
   }
 
-  // TEST CODE
-
-  while (true) {
-    PID(50, motor);
-  }
-
-  /*
-  while(true){
-    if (digitalRead(buttonPin[0]) == true) {
-      motor.up(10);
-    } else if (digitalRead(buttonPin[1]) == true){
-      motor.down(10);
-    } else {
-      motor.stop();
-    }
   
-    Serial.println(motor.getPos());
-  }
-  */
+  PID(potmeter*50, motor);
+ 
+  
+  
 }
