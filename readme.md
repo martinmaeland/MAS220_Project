@@ -14,4 +14,6 @@ Requirements and documentation is in resources directory.
 - [x] Get motor posision using encoder.
 - [x] Implement PID-controller for servo-motor.
 - [ ] Create elevator simulation
-  - [ ] test
+  - [ ] Serve a customer to the chosen floor.
+  - [ ] Keep track of multiple customers, queue functionality.
+  - [ ] Optimize functionality.
