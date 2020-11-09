@@ -8,15 +8,21 @@
 #include "functions.h"
 #include "motor.h"
 #include "pid.h"
+#include "stepper.h"
 
 // Create servo object
 Motor motor;
+
+// Create stepmotor
+StepMotor stepper;
+
 
 void funcA(){
   motor.encoderA();
 }
 
 void setup() {
+  
   // Set pinmodes
   setPinModes();
 
@@ -46,7 +52,16 @@ void loop() {
   
 
   
-  PID(potmeter, motor);
+  
+  if (digitalRead(buttonPin[0]) == 1){
+    stepper.control_door = opening;
+    stepper.stepmotor(stepper.control_door);
+  }
+  else if (digitalRead(buttonPin[1]) == 1){
+    stepper.control_door = closing;
+    stepper.stepmotor(stepper.control_door); 
+  }
+
  
   
   
