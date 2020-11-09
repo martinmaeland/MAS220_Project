@@ -3,9 +3,10 @@
 #include <arduino.h>
 
 bool firstScan = true;
+
 // Gains
 double k_p = 0.5; // proportional gain
-double k_i = 10; // integral gain
+double k_i = 50; // integral gain
 double k_d = 1; // derivative gain
 
 // Variables
@@ -25,16 +26,26 @@ double dt = 0;
 double sst = 0;
 
 void initPid() {
-  // Error var resets
-  error = 0; 
-  errorSum = 0;
-  errorPrev = 0;
+  // Gains
+  double k_p = 0.5; // proportional gain
+  double k_i = 50; // integral gain
+  double k_d = 1; // derivative gain
   
-  // Time var resets
-  t = 0;
-  t0 = 0;
-  dt = 0;
-  sst = 0;
+  // Variables
+  double u_p, u_i, u_d;
+  double error = 0; 
+  double errorSum = 0;
+  double errorPrev = 0;
+  double u = 0;
+  int maxSpeed = 150;
+  int minSpeed = 8;
+  double toleratedError = 0.4;
+  
+  // Time variables
+  double t = 0;
+  double t0 = 0;
+  double dt = 0;
+  double sst = 0;
 }
 
 void PID(double sp, Motor& motor) {

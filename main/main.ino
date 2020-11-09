@@ -7,14 +7,18 @@
 // INCLUDES
 #include "functions.h"
 #include "motor.h"
+#include "stepper.h"
 #include "pid.h"
 
 // Create servo object
-Motor motor;
+Motor servo;
 
 void funcA(){
-  motor.encoderA();
+  servo.encoderA();
 }
+
+// Create stepper object
+StepMotor stepper;
 
 void setup() {
   // Set pinmodes
@@ -24,30 +28,15 @@ void setup() {
   Serial.begin(9600);
 
   // INTERRUPT
-  attachInterrupt(digitalPinToInterrupt(motor.encA), funcA, RISING);
+  attachInterrupt(digitalPinToInterrupt(servo.encA), funcA, RISING);
   delay(1000);
 }
 
 
 void loop() {
-
-  // queueUp = []
-  // queueDown = []
-
-  int potmeter = 360;
-
-  /*
-  checkCustomers();
-
-  if (queueDown.length() > 1) {
-      
-  } 
-  */
   
+  // test
+  int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
+  PID(potmeter*50, servo);
 
-  
-  PID(potmeter, motor);
- 
-  
-  
 }

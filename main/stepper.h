@@ -1,10 +1,8 @@
+// **** Stepmotor class ****
 
+#include <dac.h>
 
-
-  #include <dac.h>
-
-
- class StepMotor{
+class StepMotor{
   private:
     const int enableA = 69;
     const int enableB = 67;
@@ -22,11 +20,11 @@
     enum dr_state{CLOSED, OPEN, HALF};
     dr_state door_state = CLOSED;
   
-  StepMotor();
-  void cw(void);
-  void ccw(void);
-  void state_of_door(dr_state* door_state);
-  void stepmotor(move_door* state_of_door);
+    StepMotor();
+    void cw(void);
+    void ccw(void);
+    void state_of_door(dr_state* door_state);
+    void stepmotor(move_door* state_of_door);
   
 
 };
