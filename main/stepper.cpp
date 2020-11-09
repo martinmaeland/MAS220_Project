@@ -65,32 +65,31 @@ void StepMotor::ccw(void) {
 
 }
 
-void StepMotor::go_to_pos(int new_pos){
-   while (true){
-    if (new_pos > current_pos){
-      cw();
+
+
+void StepMotor::stepmotor(move_door* state_of_door){
+  if (*state_of_door == opening && current_pos < 50){
+    cw();
+    if (current_pos == 50){
+      *state_of_door = still;
     }
-    else if (new_pos < current_pos){
-      ccw();
+  }
+  else if(*state_of_door == closing && current_pos > 0){
+    ccw();
+    if (current_pos == 0){
+       *state_of_door = still;
     }
-    else if (new_pos == current_pos){
-      break;
-    }
-    }
+  }
 }
 
-// Test if stepmotor can move to a position
-void StepMotor::move_door(void){ 
-  if (current_pos <= 50 && door_state == false){
-    cw();
+void StepMotor::state_of_door(dr_state* door_state){
+  if (current_pos == 50){
+    *door_state = OPEN;
   }
-  else if (current_pos  > 0){
-    ccw();  
+  else if (current_pos == 0){
+    *door_state = CLOSED;
   }
-  if (current_pos == 0){
-    door_state = true;
-  }
-  else if(current_pos > 0){
-    door_state = false;
+  else {
+    *door_state = HALF;
   }
 }
