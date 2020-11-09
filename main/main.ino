@@ -9,7 +9,6 @@
 #include "motor.h"
 #include "stepper.h"
 #include "pid.h"
-#include "stepper.h"
 
 // Create servo object
 Motor servo;
@@ -17,13 +16,10 @@ Motor servo;
 // Create stepmotor
 StepMotor stepper;
 
-
 void funcA(){
   servo.encoderA();
 }
 
-// Create stepper object
-StepMotor stepper;
 
 void setup() {
   
@@ -44,10 +40,6 @@ void loop() {
   // test
   int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
   PID(potmeter*50, servo);
-
-<<<<<<< HEAD
-=======
-  
   
   if (digitalRead(buttonPin[0]) == 1){
     stepper.control_door = opening;
@@ -58,8 +50,4 @@ void loop() {
     stepper.stepmotor(stepper.control_door); 
   }
 
- 
-  
-  
->>>>>>> b0284df41291816936708b7c1b10a5dc936ffe6a
 }
