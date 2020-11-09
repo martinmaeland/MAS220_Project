@@ -21,7 +21,8 @@ StepMotor stepper;
 Lift lift;
 
 // Functions
-void PID(double sp, Motor motor);
+void initPid();
+void PID(double sp, Motor& motor);
 
 void funcA() {
   motor.encoderA();
@@ -33,7 +34,6 @@ void setup() {
   for (int i = 8; i > 0; i--){
     pinMode(ledPin[i-1], OUTPUT);
   }
-
 
   // DEFINE BUTTONS
   for (int i = 0; i < 8; i++){
@@ -55,6 +55,8 @@ void setup() {
 
   // INTERRUPT
   attachInterrupt(digitalPinToInterrupt(motor.encA), funcA, RISING);
+
+  delay(1000);
 }
 
 
@@ -76,6 +78,7 @@ void loop() {
     service = true;
   }
 
+<<<<<<< HEAD
   // TEST CODE
 
   /*while (true) {
@@ -94,8 +97,11 @@ void loop() {
     } else {
       motor.stop();
     }
+=======
+>>>>>>> refs/remotes/origin/master
   
-    Serial.println(motor.getPos());
-  }
-  */
+  PID(potmeter*50, motor);
+ 
+  
+  
 }
