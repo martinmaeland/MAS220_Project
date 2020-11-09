@@ -42,8 +42,5 @@ void Motor::encoderA(){
     pos += (22.5/131.0);
   } else if (dir == -1) {
     pos -= (22.5/131.0);
-}
-
-void Motor::encoderB() {
-  
+  }
 }

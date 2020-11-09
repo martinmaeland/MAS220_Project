@@ -8,9 +8,17 @@
 #include "variables.h"
 #include "functions.h"
 #include "motor.h"
+//#include "stepper.h"
+#include "lift.h"
 
 // Create motor
 Motor motor;
+
+// Create stepper
+StepMotor stepper;
+
+// Create lift
+Lift lift;
 
 // Functions
 void PID(double sp, Motor motor);
@@ -70,9 +78,12 @@ void loop() {
 
   // TEST CODE
 
-  while (true) {
-    PID(50, motor);
-  }
+  /*while (true) {
+    PID(-50, motor);
+  }*/
+
+  lift.door(stepper);
+
 
   /*
   while(true){

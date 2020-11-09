@@ -4,7 +4,7 @@
   #include <arduino.h>
   
 StepMotor::StepMotor(void){
-  pinMode(phaseA, OUTPUT);
+  pinMode(phaseA, OUTPUT); 
   pinMode(enableA, OUTPUT);
   pinMode(phaseB, OUTPUT);
   pinMode(enableB, OUTPUT);
@@ -13,7 +13,7 @@ StepMotor::StepMotor(void){
   set_dac(4095,4095);
 }
 
-void  StepMotor::cw(void){
+void  StepMotor::cw(void){ 
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, LOW);
@@ -62,6 +62,7 @@ void StepMotor::ccw(void) {
   delay(step_delay); 
 
   current_pos--;
+
 }
 
 void StepMotor::go_to_pos(int new_pos){
@@ -75,5 +76,21 @@ void StepMotor::go_to_pos(int new_pos){
     else if (new_pos == current_pos){
       break;
     }
-   }
+    }
+}
+
+// Test if stepmotor can move to a position
+void StepMotor::move_door(void){ 
+  if (current_pos <= 50 && door_state == false){
+    cw();
+  }
+  else if (current_pos  > 0){
+    ccw();  
+  }
+  if (current_pos == 0){
+    door_state = true;
+  }
+  else if(current_pos > 0){
+    door_state = false;
+  }
 }
