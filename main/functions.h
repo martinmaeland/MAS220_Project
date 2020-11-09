@@ -12,8 +12,6 @@ const int mechEncButton = 2;
 const int rs = 41, en = 40, d4 = 37, d5 = 36, d6 = 35, d7 = 34;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-
-
 void setPinModes() {
   // DEFINE LEDS
   for (int i = 8; i > 0; i--){
@@ -46,16 +44,6 @@ int joyDirection(double joyRead) {
   }
 }
 
-// Function that awaits new floor input
-void newFloorFunc(int* newFloorPnt, const int buttonPin[]){
-  int chosenFloor = 100;
-  Serial.println("What floor do you desire?");
-  while (chosenFloor == 100) {
-    for (int i = 0; i <= 7; i++){
-      if (digitalRead(buttonPin[i]) == 1){
-        chosenFloor = i;
-      }
-    }
-  }
-  *newFloorPnt = chosenFloor;
+bool serving() {
+  
 }
