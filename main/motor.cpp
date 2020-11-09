@@ -46,11 +46,8 @@ void Motor::encoderA(void){
   } else if (dir == -1) {
     pos -= (22.5/131.0);
   }
-<<<<<<< HEAD
-=======
 }
 
 void Motor::encoderB(void) {
   // test
->>>>>>> refs/remotes/origin/master
 }

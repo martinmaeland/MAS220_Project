@@ -8,17 +8,9 @@
 #include "variables.h"
 #include "functions.h"
 #include "motor.h"
-//#include "stepper.h"
-#include "lift.h"
 
 // Create motor
 Motor motor;
-
-// Create stepper
-StepMotor stepper;
-
-// Create lift
-Lift lift;
 
 // Functions
 void initPid();
@@ -78,27 +70,6 @@ void loop() {
     service = true;
   }
 
-<<<<<<< HEAD
-  // TEST CODE
-
-  /*while (true) {
-    PID(-50, motor);
-  }*/
-
-  lift.door(stepper);
-
-
-  /*
-  while(true){
-    if (digitalRead(buttonPin[0]) == true) {
-      motor.up(10);
-    } else if (digitalRead(buttonPin[1]) == true){
-      motor.down(10);
-    } else {
-      motor.stop();
-    }
-=======
->>>>>>> refs/remotes/origin/master
   
   PID(potmeter*50, motor);
  
