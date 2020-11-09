@@ -1,4 +1,4 @@
-// **** MOTOR FUNCTIONS ****
+// **** Servo class ****
 
 #include <arduino.h>
 

@@ -1,7 +1,6 @@
-// **** PID FUNCTION ****
+// **** Defining PID ****
 
 #include <arduino.h>
-#include "motor.h"
 
 bool firstScan = true;
 // Gains
@@ -26,22 +25,12 @@ double dt = 0;
 double sst = 0;
 
 void initPid() {
-  // Gains
-  k_p = 0.5; // proportional gain
-  k_i = 100; // integral gain
-  k_d = 1; // derivative gain
-  
-  // Variables
-  u_p, u_i, u_d;
+  // Error var resets
   error = 0; 
   errorSum = 0;
   errorPrev = 0;
-  u = 0;
-  maxSpeed = 150;
-  minSpeed = 8;
-  toleratedError = 0.4;
   
-  // Time variables
+  // Time var resets
   t = 0;
   t0 = 0;
   dt = 0;
@@ -71,6 +60,7 @@ void PID(double sp, Motor& motor) {
   if ( (millis()-sst) > 500) {
     motor.stop();
     firstScan = true;
+    u = 0;
   } else if (u > 0) {
     if (u > maxSpeed) {
       u = maxSpeed;

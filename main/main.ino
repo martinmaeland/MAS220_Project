@@ -5,73 +5,48 @@
 */
 
 // INCLUDES
-#include "variables.h"
 #include "functions.h"
 #include "motor.h"
+#include "pid.h"
 
-// Create motor
+// Create servo object
 Motor motor;
 
-// Functions
-void initPid();
-void PID(double sp, Motor& motor);
-
-void funcA() {
+void funcA(){
   motor.encoderA();
 }
 
 void setup() {
-
-  // DEFINE LEDS
-  for (int i = 8; i > 0; i--){
-    pinMode(ledPin[i-1], OUTPUT);
-  }
-
-  // DEFINE BUTTONS
-  for (int i = 0; i < 8; i++){
-    pinMode(buttonPin[i], INPUT);
-  }
-  
-  // DEFINE ENCODER BUTTON
-  pinMode(mechEncButton, INPUT);
-
-  // DEFINE LCD
-  pinMode(4, OUTPUT);
-  analogWrite(4, 255);
-  lcd.begin(16, 2); // set up the LCD's number of columns and rows:
-  lcd.print("Current floor ");
-  lcd.print(currentFloor);
+  // Set pinmodes
+  setPinModes();
 
   // Begin serial communication
   Serial.begin(9600);
 
   // INTERRUPT
   attachInterrupt(digitalPinToInterrupt(motor.encA), funcA, RISING);
-
   delay(1000);
 }
 
 
 void loop() {
 
-  // READING VALUES
-  int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
-  int joyDir = joyDirection(analogRead(A2));
+  // queueUp = []
+  // queueDown = []
 
-  // CHOOSING CURRENT FLOOR LED
-  for (int i = 8; i > 0; i--){
-     digitalWrite(ledPin[i-1], 0);
-  }
-  digitalWrite(ledPin[potmeter], 1);
+  int potmeter = 360;
 
-  // STARTING SERVICE
-  if (joyDir != 0){
-    customerFloor = 7-potmeter;
-    service = true;
-  }
+  /*
+  checkCustomers();
+
+  if (queueDown.length() > 1) {
+      
+  } 
+  */
+  
 
   
-  PID(potmeter*50, motor);
+  PID(potmeter, motor);
  
   
   
