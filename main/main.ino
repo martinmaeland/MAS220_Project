@@ -36,4 +36,10 @@ void setup() {
 
 void loop() {
 
+  int wantedFloor = checkCustomer();
+
+  if (wantedFloor != servo.currentFloor) {
+    Serial.println(wantedFloor);
+  }
+
 }

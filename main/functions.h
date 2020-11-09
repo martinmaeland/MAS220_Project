@@ -44,6 +44,17 @@ int joyDirection(double joyRead) {
   }
 }
 
-bool serving() {
-  
-}
+int checkCustomer() {
+  int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
+  int joyDir = joyDirection(analogRead(A2));
+
+  for (int i=8; i>0; i--) {
+    digitalWrite(ledPin[i-1], 0);
+  }
+
+  digitalWrite(ledPin[potmeter], 1);
+
+  if (joyDir != 0) {
+    return 7-potmeter;
+  }
+} 
