@@ -13,13 +13,12 @@
 // Create servo object
 Motor servo;
 
-// Create stepmotor
+// Create stepmotor object
 StepMotor stepper;
 
 void funcA(){
   servo.encoderA();
 }
-
 
 void setup() {
   
@@ -36,18 +35,5 @@ void setup() {
 
 
 void loop() {
-  
-  // test
-  int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
-  PID(potmeter*50, servo);
-  
-  if (digitalRead(buttonPin[0]) == 1){
-    stepper.control_door = opening;
-    stepper.stepmotor(stepper.control_door);
-  }
-  else if (digitalRead(buttonPin[1]) == 1){
-    stepper.control_door = closing;
-    stepper.stepmotor(stepper.control_door); 
-  }
 
 }
