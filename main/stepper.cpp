@@ -67,29 +67,31 @@ void StepMotor::ccw(void) {
 
 
 
-void StepMotor::stepmotor(move_door* state_of_door){
-  if (*state_of_door == opening && current_pos < 50){
+void StepMotor::stepmotor(door_control control_door){
+  if (control_door == opening && current_pos < 50){
     cw();
     if (current_pos == 50){
-      *state_of_door = still;
+      control_door = still;
     }
   }
-  else if(*state_of_door == closing && current_pos > 0){
+  else if(control_door == closing && current_pos > 0){
     ccw();
     if (current_pos == 0){
-       *state_of_door = still;
+       control_door = still;
     }
   }
 }
 
-void StepMotor::state_of_door(dr_state* door_state){
+
+
+void StepMotor::state_of_door(door_state state_door){
   if (current_pos == 50){
-    *door_state = OPEN;
+    state_door = open;
   }
   else if (current_pos == 0){
-    *door_state = CLOSED;
+    state_door = closed;
   }
   else {
-    *door_state = HALF;
+    state_door = half;
   }
 }

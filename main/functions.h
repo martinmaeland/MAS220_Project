@@ -12,6 +12,8 @@ const int mechEncButton = 2;
 const int rs = 41, en = 40, d4 = 37, d5 = 36, d6 = 35, d7 = 34;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
+
+
 void setPinModes() {
   // DEFINE LEDS
   for (int i = 8; i > 0; i--){
