@@ -2,8 +2,8 @@
 
 #include <dac.h>
 
- enum door_control{still, opening, closing};
- enum door_state{closed, open, half};
+ enum door_control{OPENDOOR, CLOSEDOOR};
+ enum door_state{CLOSED, OPEN, HALF};
 
  class StepMotor{
   private:
@@ -16,15 +16,14 @@
   public:
     int current_pos = 0;
     door_control control_door;
-    door_state state_door;
 
   
     StepMotor();
     void cw(void);
     void ccw(void);
 
-    void state_of_door(door_state state_door);
-    void stepmotor(door_control control_door);
+    door_state state_of_door(void);
+    void door(door_control control_door);
 
 };
   

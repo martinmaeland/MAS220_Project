@@ -12,6 +12,7 @@ Motor::Motor(void) {
 
 void Motor::up(double spd) {
   dir = 1;
+  servoState = WINDING;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], HIGH);
   analogWrite(dcMotor[2], spd);
@@ -20,6 +21,7 @@ void Motor::up(double spd) {
 
 void Motor::down(double spd) {
   dir = -1;
+  servoState = UNWINDING;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], LOW);
   analogWrite(dcMotor[2], spd);
@@ -27,6 +29,7 @@ void Motor::down(double spd) {
 
 void Motor::stop(void) {
   dir = 0;
+  servoState = STOPPED;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], HIGH);
   analogWrite(dcMotor[2], 0);

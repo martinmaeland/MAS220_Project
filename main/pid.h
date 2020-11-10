@@ -49,7 +49,6 @@ void initPid() {
 }
 
 void PID(double sp, Motor& motor) {
-
   if (firstScan) {
     initPid();
     firstScan = false;
@@ -87,13 +86,14 @@ void PID(double sp, Motor& motor) {
     }
     motor.down(abs(u));
   }
-
+  /*
   Serial.print("U: ");
   Serial.print(u);
   Serial.print("|  Position: ");
   Serial.print(motor.getPos());
   Serial.print(" | error: ");
   Serial.println(error);
-  
+  */
   t0 = t;
+  
 }
