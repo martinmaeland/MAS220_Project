@@ -1,21 +1,15 @@
 // **** Defining functions ****
 
 #include <arduino.h>
-#include <LiquidCrystal.h>
 
 // Pins
 const int ledPin[] = {42, 43, 44, 45, 46, 47, 48, 49};
 const int buttonPin[] = {22, 23, 24, 25, 26, 27, 28, 29}; // {0 ... 8}
 const int mechEncButton = 2;
 
-// Lcd setup
-const int rs = 41, en = 40, d4 = 37, d5 = 36, d6 = 35, d7 = 34;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-
 // Variables
 long int arrivalTime = 50000;
 bool service = false;
-
 
 void setPinModes() {
   // DEFINE LEDS
@@ -27,7 +21,7 @@ void setPinModes() {
   for (int i = 0; i < 8; i++){
     pinMode(buttonPin[i], INPUT);
   }
-  
+
   // DEFINE ENCODER BUTTON
   pinMode(mechEncButton, INPUT);
 
@@ -62,5 +56,5 @@ int checkCustomer() {
   if (joyDir != 0) {
     service = true;
     return 7-potmeter;
-  } 
-} 
+  }
+}
