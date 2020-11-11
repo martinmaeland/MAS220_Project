@@ -18,24 +18,24 @@ void  StepMotor::cw(void){
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, LOW);
   digitalWrite(phaseB, LOW);
-  delay(step_delay); 
+  delay(stepDelay); 
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, LOW);
   digitalWrite(phaseB, HIGH);
-  delay(step_delay); 
+  delay(stepDelay); 
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, HIGH);
   digitalWrite(phaseB, HIGH);
-  delay(step_delay); 
+  delay(stepDelay); 
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, HIGH);
   digitalWrite(phaseB, LOW);
-  delay(step_delay); 
+  delay(stepDelay); 
 
-  current_pos++;
+  currentPos++;
 }
 
 
@@ -44,45 +44,45 @@ void StepMotor::ccw(void) {
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, HIGH);
   digitalWrite(phaseB, LOW);
-  delay(step_delay);
+  delay(stepDelay);
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, HIGH);
   digitalWrite(phaseB, HIGH);
-  delay(step_delay);  
+  delay(stepDelay);  
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, LOW);
   digitalWrite(phaseB, HIGH);
-  delay(step_delay); 
+  delay(stepDelay); 
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
   digitalWrite(phaseA, LOW);
   digitalWrite(phaseB, LOW);
-  delay(step_delay); 
+  delay(stepDelay); 
 
-  current_pos--;
+  currentPos--;
 
 }
 
 
 
-void StepMotor::door(door_control control_door){
-  while (control_door == OPENDOOR && current_pos < 50){
+void StepMotor::door(drControl controlDoor){
+  while (controlDoor == OPENDOOR && currentPos < 50){
     cw();
   }
-  while(control_door == CLOSEDOOR && current_pos > 0){
+  while(controlDoor == CLOSEDOOR && currentPos > 0){
     ccw();
   }
 }
 
 
 
-door_state StepMotor::state_of_door(void){
-  if (current_pos == 50){
+drState StepMotor::stateOfDoorFunc(void){
+  if (currentPos == 50){
     return OPEN;
   }
-  else if (current_pos == 0){
+  else if (currentPos == 0){
     return CLOSED;
   }
   else {

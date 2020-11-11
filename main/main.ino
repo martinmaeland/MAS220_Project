@@ -35,20 +35,15 @@ void setup() {
   
 }
 
-bool arrived = false;
-int previousWantedFloor = 0;
-bool servingCustomer = false;
-int desiredFloor = 0;
-int desiredFloorPos = 0;
+bool anotherCheckpoint = false;
 
 void loop() {
   // Checking variables
-  door_state doorState = stepper.state_of_door(); //Checking state of door. OPEN, HALF or CLOSED.
-  stateOfServo servoState = servo.servoStateFunc(); //Checking state of servo motor. WINDING, UNWINDING or STOPPED
-  volatile int currentFloor = round(servo.getPos() / 360);
-  
-  int wantedFloor = checkCustomer();
-  int travelToPos = wantedFloor*360;
+  drState doorState = stepper.stateOfDoorFunc(); //Checking state of door. OPEN, HALF or CLOSED.
+  stateOfServo servoState = servo.servoStateFunc(); //Checking state of servo motor. WINDING, UNWINDING or STOPPED.
+  volatile int currentFloor = round(servo.getPos() / 360); //Checking current floor of elevator.
+  int wantedFloor = checkCustomer(); //Checking if someone calls elevator to a floor.
+  int travelToPos = wantedFloor*360; //Checking the position of called floor. 
 
   for (int i = 0; i < 8; i++){
     if (digitalRead(buttonPin[i]) == 1 && service == false){
@@ -60,26 +55,38 @@ void loop() {
   
   if (servingCustomer == true){
     if (doorState == CLOSED){
-      PID(desiredFloorPos, servo);
-      servoState = servo.servoState;
-      if (servoState == STOPPED){
+      if (desiredFloor >= currentFloor && dirToGo != DOWN){
+        PID(desiredFloorPos, servo);
+        anotherCheckpoint = true;
+      } else if(desiredFloor <= currentFloor && dirToGo != UP){
+        PID(desiredFloorPos, servo);
+        anotherCheckpoint = true;
+      } 
+      servoState = servo.servoStateFunc();
+      if (servoState == STOPPED && anotherCheckpoint == true){
         arrivalTime = millis();
         servingCustomer = false;
+        anotherCheckpoint = false;
       }
+    } else if (doorState != CLOSED){
+      stepper.door(CLOSEDOOR);
     }
   }
     
 
-  if (wantedFloor < 8 && wantedFloor >= 0 && service == true && servingCustomer == false) {
+  if (wantedFloor < 8 && wantedFloor >= 0 && service == true && servingCustomer == false && millis() - arrivalTime > 1000) {
     if (doorState == CLOSED){
-      PID(travelToPos, servo);
-      servoState = servo.servoState;
-      if (servoState == STOPPED){
-        arrivalTime = millis();
-        service = false;
+      if (dirToGo != NOTHING){
+        PID(travelToPos, servo);
+        servoState = servo.servoStateFunc();
+        if (servoState == STOPPED){
+          arrivalTime = millis();
+          service = false;
+          dirToGo = NOTHING;
+        }
       }
     } else if (doorState != CLOSED){
-      Serial.println("Please close the door"); 
+      stepper.door(CLOSEDOOR);
     }
   }
   
@@ -92,19 +99,20 @@ void loop() {
   }
 
 
-
-
   
-
-
   Serial.print("currentFloor: ");
   Serial.print(currentFloor);
   Serial.print("  servo state: ");
   Serial.print(servoState);
   Serial.print("  arrival time: ");
-  Serial.println(arrivalTime);
+  Serial.print(arrivalTime);
   Serial.print("  door state: ");
-  Serial.println(doorState);
+  Serial.print(doorState);
+  Serial.print("  joyDir: ");
+  Serial.print(joyDir);
+  Serial.print("  service: ");
+  Serial.println(service);
+
 
 
 }

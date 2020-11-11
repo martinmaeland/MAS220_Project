@@ -2,8 +2,8 @@
 
 #include <dac.h>
 
- enum door_control{OPENDOOR, CLOSEDOOR};
- enum door_state{CLOSED, OPEN, HALF};
+ enum drControl{OPENDOOR, CLOSEDOOR};
+ enum drState{CLOSED, OPEN, HALF};
 
  class StepMotor{
   private:
@@ -11,19 +11,19 @@
     const int enableB = 67;
     const int phaseA = 68;
     const int phaseB = 66 ;
-    const int step_delay = 15;
+    const int stepDelay = 15;
 
   public:
-    int current_pos = 0;
-    door_control control_door;
+    int currentPos = 0;
+    drControl controlDoor;
 
   
     StepMotor();
     void cw(void);
     void ccw(void);
 
-    door_state state_of_door(void);
-    void door(door_control control_door);
+    drState stateOfDoorFunc(void);
+    void door(drControl controlDoor);
 
 };
   

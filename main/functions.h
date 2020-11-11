@@ -15,6 +15,13 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 // Variables
 long int arrivalTime = 50000;
 bool service = false;
+bool arrived = false;
+bool servingCustomer = false;
+int desiredFloor = 0;
+int desiredFloorPos = 0;
+int joyDir = 0;
+enum mustGoDir{NOTHING, UP, DOWN};
+mustGoDir dirToGo = NOTHING;
 
 
 void setPinModes() {
@@ -51,7 +58,7 @@ int joyDirection(double joyRead) {
 
 int checkCustomer() {
   int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
-  int joyDir = joyDirection(analogRead(A2));
+  int _joyDir = joyDirection(analogRead(A2));
 
   for (int i=8; i>0; i--) {
     digitalWrite(ledPin[i-1], 0);
@@ -59,8 +66,16 @@ int checkCustomer() {
 
   digitalWrite(ledPin[potmeter], 1);
 
-  if (joyDir != 0) {
-    service = true;
-    return 7-potmeter;
-  } 
+  if (_joyDir != 0) {
+    if (_joyDir == 1 && 7-potmeter < 7){
+      dirToGo = UP;
+      service = true;
+    } else if(_joyDir == - 1 && 7-potmeter >= 1){
+      dirToGo = DOWN;
+      service = true;
+    }
+    if (service == true){
+      return 7-potmeter;
+    }
+  }
 } 
