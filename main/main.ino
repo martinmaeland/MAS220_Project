@@ -44,7 +44,7 @@ int desiredFloorPos = 0;
 void loop() {
   // Checking variables
   door_state doorState = stepper.state_of_door(); //Checking state of door. OPEN, HALF or CLOSED.
-  stateOfServo servoState = servo.servoState; //Checking state of servo motor. WINDING, UNWINDING or STOPPED
+  stateOfServo servoState = servo.servoStateFunc(); //Checking state of servo motor. WINDING, UNWINDING or STOPPED
   volatile int currentFloor = round(servo.getPos() / 360);
   
   int wantedFloor = checkCustomer();
@@ -83,7 +83,7 @@ void loop() {
     }
   }
   
-  if (service == false || servingCustomer == false){
+  if (service == false && servingCustomer == false){
     if (doorState != OPEN && millis() - arrivalTime < 6999 && millis() - arrivalTime > 0){
       stepper.door(OPENDOOR);
     } else if (doorState != CLOSED && millis() - arrivalTime > 7000){

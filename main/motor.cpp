@@ -21,7 +21,6 @@ void Motor::up(double spd) {
 
 void Motor::down(double spd) {
   dir = -1;
-  servoState = UNWINDING;
   digitalWrite(dcMotor[0], LOW);
   digitalWrite(dcMotor[1], LOW);
   analogWrite(dcMotor[2], spd);
@@ -37,6 +36,16 @@ void Motor::stop(void) {
 
 double Motor::getPos(void) {
   return pos;
+}
+
+stateOfServo Motor::servoStateFunc(void){
+  if (dir == -1){
+    return UNWINDING;
+  } else if (dir == 1){
+    return WINDING;
+  } else if (dir == 0){
+    return STOPPED;
+  }
 }
 
 void Motor::printPos(void) {

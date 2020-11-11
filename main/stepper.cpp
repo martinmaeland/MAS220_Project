@@ -68,10 +68,10 @@ void StepMotor::ccw(void) {
 
 
 void StepMotor::door(door_control control_door){
-  if (control_door == OPENDOOR && current_pos < 50){
+  while (control_door == OPENDOOR && current_pos < 50){
     cw();
   }
-  else if(control_door == CLOSEDOOR && current_pos > 0){
+  while(control_door == CLOSEDOOR && current_pos > 0){
     ccw();
   }
 }
