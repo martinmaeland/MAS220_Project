@@ -21,6 +21,7 @@ class Motor {
   void stop(void);
   double getPos(void);
   stateOfServo servoStateFunc(void);
+  String printServoStateFunc(void);
   void printPos(void);
   void encoderA(void);
   void encoderB(void);

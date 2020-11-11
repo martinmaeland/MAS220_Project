@@ -21,9 +21,9 @@
     StepMotor();
     void cw(void);
     void ccw(void);
-
     drState stateOfDoorFunc(void);
     void door(drControl controlDoor);
+    String printStateOfDoor(void);
 
 };
   

@@ -89,3 +89,15 @@ drState StepMotor::stateOfDoorFunc(void){
     return HALF;
   }
 }
+
+String StepMotor::printStateOfDoor(void){
+  if (currentPos == 50){
+    return "OPEN";
+  }
+  else if (currentPos == 0){
+    return "CLOSED";
+  }
+  else {
+    return "HALF";
+  }
+}

@@ -48,6 +48,16 @@ stateOfServo Motor::servoStateFunc(void){
   }
 }
 
+String Motor::printServoStateFunc(void){
+  if (dir == -1){
+    return "UNWINDING";
+  } else if (dir == 1){
+    return "WINDING";
+  } else if (dir == 0){
+    return "STOPPED";
+  }
+}
+
 void Motor::printPos(void) {
   Serial.println(pos);
 }

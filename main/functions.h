@@ -8,13 +8,14 @@ const int buttonPin[] = {22, 23, 24, 25, 26, 27, 28, 29}; // {0 ... 8}
 const int mechEncButton = 2;
 
 // Variables
-long int arrivalTime = 50000;
+long int arrivalTime = -50000;
 bool service = false;
 bool arrived = false;
 bool servingCustomer = false;
 int desiredFloor = 0;
 int desiredFloorPos = 0;
 int joyDir = 0;
+bool anotherCheckpoint = false;
 enum mustGoDir{NOTHING, UP, DOWN};
 mustGoDir dirToGo = NOTHING;
 
@@ -31,12 +32,8 @@ void setPinModes() {
 
   // DEFINE ENCODER BUTTON
   pinMode(mechEncButton, INPUT);
-
-  // DEFINE LCD
-  pinMode(4, OUTPUT);
-  analogWrite(4, 255);
-  lcd.begin(16, 2); // set up the LCD's number of columns and rows:
 }
+
 
 int joyDirection(double joyRead) {
   if (joyRead <= 350){
@@ -64,7 +61,7 @@ int checkCustomer() {
     if (_joyDir == 1 && 7-potmeter < 7){
       dirToGo = UP;
       service = true;
-    } else if(_joyDir == - 1 && 7-potmeter >= 1){
+    } else if(_joyDir == - 1 && 7-potmeter > 0){
       dirToGo = DOWN;
       service = true;
     }
