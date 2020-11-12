@@ -49,20 +49,25 @@ void initPid() {
 }
 
 void PID(double sp, Motor& motor) {
+
+  // This only once, resetting all variables
   if (firstScan) {
     initPid();
     firstScan = false;
   }
-  
+
+  // Part 1: Calculating dt and error
   t = millis();
   dt = t - t0; // calculate change in time since last loop
-  
   error = sp - motor.getPos();
+
+  // Part 2: Calculating output
   u_p = error*k_p; // proportional gain
   u_i = (errorSum + error*dt)*(1/k_i); // integral gain
   u_d = ((error-errorPrev)/dt)*k_d; // differential gain
   u = u_p + u_i; // u_d; 
 
+  // Part 3: Logic to drive motor and stop
   if (error >= toleratedError || error <= -toleratedError) {
     sst = millis();
   }
@@ -86,6 +91,8 @@ void PID(double sp, Motor& motor) {
     }
     motor.down(abs(u));
   }
+
+  // Some serial outputs for easier tuning
   /*
   Serial.print("U: ");
   Serial.print(u);
@@ -94,6 +101,7 @@ void PID(double sp, Motor& motor) {
   Serial.print(" | error: ");
   Serial.println(error);
   */
+  
   t0 = t;
   
 }
