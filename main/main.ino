@@ -41,7 +41,6 @@ void setup() {
   
 }
 
-bool anotherOneCheckPoint = false;
 
 void loop() {
   // Checking variables

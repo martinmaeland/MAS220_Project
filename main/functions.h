@@ -18,6 +18,8 @@ int joyDir = 0;
 bool anotherCheckpoint = false;
 enum mustGoDir{NOTHING, UP, DOWN};
 mustGoDir dirToGo = NOTHING;
+bool anotherOneCheckPoint = false;
+
 
 void setPinModes() {
   // DEFINE LEDS

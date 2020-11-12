@@ -1,4 +1,4 @@
-  //FUNCTIONS FOR STEPPER 
+// *** *Functions for stepmotor  ****
 
   #include "stepper.h"
   #include <arduino.h>
