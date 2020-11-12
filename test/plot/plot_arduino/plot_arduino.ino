@@ -1,22 +1,18 @@
 
-uint8_t x = 1;
-String data;
-String test = "0,1";
+int x = 1;
 
 void setup() {
-  Serial.begin(152000);
+  Serial.begin(115200);
   delay(1000);
 }
 
 void loop() {
 
-  delay(1000);
-
-  data = String(x);
-  data += String(",");
-  data += String(1/x);
+  delay(200);
   
-  Serial.print(data);
+  Serial.print(x);
+  Serial.print(",");
+  Serial.println(x*x);
   
   x++;    
    
