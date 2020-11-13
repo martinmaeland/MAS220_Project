@@ -1,23 +1,21 @@
+#include "motor.h"
+#include "pid.h"
 
-uint8_t x = 1;
-String data;
-String test = "0,1";
+Motor motor;
+
+void funcA(){
+  motor.encoderA();
+}
 
 void setup() {
-  Serial.begin(152000);
+  Serial.begin(115200);
+
+  attachInterrupt(digitalPinToInterrupt(motor.encA), funcA, RISING);
   delay(1000);
 }
 
 void loop() {
 
-  delay(1000);
-
-  data = String(x);
-  data += String(",");
-  data += String(1/x);
-  
-  Serial.print(data);
-  
-  x++;    
+  PID(360.0, motor);
    
 }
