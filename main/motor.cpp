@@ -3,6 +3,7 @@
 #include <arduino.h>
 #include "motor.h"
 
+// Define pinmodes for motor on object creation
 Motor::Motor(void) {
   for (int i=0; i<3; i++) {
     pinMode(dcMotor[i], OUTPUT);
@@ -10,6 +11,7 @@ Motor::Motor(void) {
   pinMode(encA, INPUT);
 }
 
+// Drive motor up (cw) with given speed
 void Motor::up(double spd) {
   dir = 1;
   servoState = WINDING;
@@ -19,6 +21,7 @@ void Motor::up(double spd) {
   //Serial.println("GOING UP");
 }
 
+// Drive motor down (ccw) with given speed
 void Motor::down(double spd) {
   dir = -1;
   digitalWrite(dcMotor[0], LOW);
@@ -26,6 +29,7 @@ void Motor::down(double spd) {
   analogWrite(dcMotor[2], spd);
 }
 
+// Stop motor
 void Motor::stop(void) {
   dir = 0;
   servoState = STOPPED;
@@ -34,10 +38,12 @@ void Motor::stop(void) {
   analogWrite(dcMotor[2], 0);
 }
 
+// Return motor position
 double Motor::getPos(void) {
   return pos;
 }
 
+// Return state of motor
 stateOfServo Motor::servoStateFunc(void){
   if (dir == -1){
     return UNWINDING;
@@ -48,6 +54,7 @@ stateOfServo Motor::servoStateFunc(void){
   }
 }
 
+// Print state of motor
 String Motor::printServoStateFunc(void){
   if (dir == -1){
     return "UNWINDING";
@@ -58,18 +65,16 @@ String Motor::printServoStateFunc(void){
   }
 }
 
+// Print position of motor
 void Motor::printPos(void) {
   Serial.println(pos);
 }
 
+// Interrupt function to register position
 void Motor::encoderA(void){
   if (dir == 1) {
     pos += (22.5/131.0);
   } else if (dir == -1) {
     pos -= (22.5/131.0);
   }
-}
-
-void Motor::encoderB(void) {
-  // test
 }
