@@ -14,7 +14,7 @@ class Motor {
   volatile double pos = 0; // position in degrees
   int dir = 0; // true is up, false is down
   stateOfServo servoState = STOPPED;
- 
+
   Motor();
   void up(double); // speed input
   void down(double); // speed input
