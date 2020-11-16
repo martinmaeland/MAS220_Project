@@ -2,17 +2,21 @@
 
   #include "stepper.h"
   #include <arduino.h>
-  
+
+//Declaring stepmotor and inputs for stepmotor.   
 StepMotor::StepMotor(void){
   pinMode(phaseA, OUTPUT); 
   pinMode(enableA, OUTPUT);
   pinMode(phaseB, OUTPUT);
   pinMode(enableB, OUTPUT);
 
+  //Initializing DAC and setting 
   dac_init();
+  //Allowing 1A per motor phase
   set_dac(4095,4095);
 }
 
+//Running the stepmotor clockwise when seeing "Servolab" from front. 
 void  StepMotor::cw(void){ 
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
@@ -38,7 +42,7 @@ void  StepMotor::cw(void){
   currentPos++;
 }
 
-
+//Running the stepmotor counter-clockwise when seeing "Servolab" from front. 
 void StepMotor::ccw(void) {
   digitalWrite(enableA, HIGH);
   digitalWrite(enableB, HIGH);
@@ -66,7 +70,8 @@ void StepMotor::ccw(void) {
 }
 
 
-
+//Opening and closing door.
+//Had to use while loops instead of if statements because code was to slow...
 void StepMotor::door(drControl controlDoor){
   while (controlDoor == OPENDOOR && currentPos < 50){
     cw();
@@ -77,7 +82,7 @@ void StepMotor::door(drControl controlDoor){
 }
 
 
-
+//Returning state of the door.
 drState StepMotor::stateOfDoorFunc(void){
   if (currentPos == 50){
     return OPEN;
@@ -90,6 +95,7 @@ drState StepMotor::stateOfDoorFunc(void){
   }
 }
 
+//Returning a string of the state of the door (Using this to monitor the state).
 String StepMotor::printStateOfDoor(void){
   if (currentPos == 50){
     return "OPEN";

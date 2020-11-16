@@ -51,10 +51,9 @@ void loop() {
   int travelToPos = wantedFloor*360; //Checking the position of called floor. 
 
   //Screen prints
-  //screen.clear();
   screen.showCurrentFloor(currentFloor);
 
-
+  //Checking if customer presses button inside elevator.
   for (int i = 0; i < 8; i++){
     if (digitalRead(buttonPin[i]) == 1 && service == false){
       servingCustomer = true;
@@ -62,7 +61,11 @@ void loop() {
       desiredFloorPos = i*360;
     }
   }
-  
+
+  //If button inside elevator is pressed. Elevator will travel to desired floor and stop there if door is closed.
+  //If the door is closed and direction is correct (direction cutomer decided when calling the floor) the elevator can travel.
+  //If door is open or half, the door will close before traveling.
+  //If direction is wrong. Nothing will happen. 
   if (servingCustomer == true){
     if (doorState == CLOSED){
       if (desiredFloor >= currentFloor && dirToGo == UP){
@@ -86,7 +89,10 @@ void loop() {
     }
   }
     
-
+  //If customer calls elevator to a floor this function will start.
+  //Elevator must be called to floor 0-7. 
+  //If elevator is allready running nothing will happen. 
+  //Checking if door is closed, can't travel if door is open. If door is open. It will close.
   if (wantedFloor < 8 && wantedFloor >= 0 && service == true && servingCustomer == false && millis() - arrivalTime > 1000) {
     if (doorState == CLOSED){
       if (dirToGo != NOTHING){
@@ -104,7 +110,11 @@ void loop() {
       stepper.door(CLOSEDOOR);
     }
   }
-  
+
+
+  //If elevator reaches a floor from either of the functios above this function will start.
+  //This function opens the door when elevator reaches the desired floor. 
+  //Waits for 7 second, then closes. Can be closed earlier if button inside elevator is pressed.
   if (service == false && servingCustomer == false){
     if (doorState != OPEN && millis() - arrivalTime < 6999 && millis() - arrivalTime > 0){
       Serial.print("  Elevator state: ");
@@ -128,7 +138,7 @@ void loop() {
   }
 
 
-
+  //Prints door and elevator state.
   Serial.print("  Elevator state: ");
   Serial.print(servo.printServoStateFunc());
   Serial.print("   Door state: ");

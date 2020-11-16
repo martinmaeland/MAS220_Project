@@ -2,11 +2,12 @@
 
 #include <dac.h>
 
- enum drControl{OPENDOOR, CLOSEDOOR};
- enum drState{CLOSED, OPEN, HALF};
+ enum drControl{OPENDOOR, CLOSEDOOR}; //Creating a enum to control the door
+ enum drState{CLOSED, OPEN, HALF};    //Creating a enum to monitor state of door.
 
  class StepMotor{
   private:
+    //Pins to controll servomotor.
     const int enableA = 69;
     const int enableB = 67;
     const int phaseA = 68;
