@@ -21,22 +21,24 @@ mustGoDir dirToGo = NOTHING;
 bool anotherOneCheckPoint = false;
 
 
+// Defines pinmodes
 void setPinModes() {
-  // DEFINE LEDS
+
+  // LEDs
   for (int i = 8; i > 0; i--){
     pinMode(ledPin[i-1], OUTPUT);
   }
 
-  // DEFINE BUTTONS
+  // Buttons
   for (int i = 0; i < 8; i++){
     pinMode(buttonPin[i], INPUT);
   }
 
-  // DEFINE ENCODER BUTTON
+  // Encoder button
   pinMode(mechEncButton, INPUT);
 }
 
-
+// Joystick mapping, 1 for up and -1 for down
 int joyDirection(double joyRead) {
   if (joyRead <= 350){
     return -1;
@@ -49,6 +51,7 @@ int joyDirection(double joyRead) {
   }
 }
 
+// Check which floor customer is on when calling elevator
 int checkCustomer() {
   int potmeter = map(analogRead(A0), 0, 1000, 0, 7);
   int _joyDir = joyDirection(analogRead(A2));

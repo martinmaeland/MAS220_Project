@@ -2,6 +2,7 @@
 
 #include <arduino.h>
 
+// Bool for first scan
 bool firstScan = true;
 
 // Gains
@@ -11,7 +12,7 @@ double k_d = 1; // derivative gain
 
 // Variables
 double u_p, u_i, u_d;
-double error = 0; 
+double error = 0;
 double errorSum = 0;
 double errorPrev = 0;
 double u = 0;
@@ -25,22 +26,24 @@ double t0 = 0;
 double dt = 0;
 double sst = 0;
 
+
+// This function resets variables for next job
 void initPid() {
   // Gains
   double k_p = 0.5; // proportional gain
   double k_i = 50; // integral gain
   double k_d = 1; // derivative gain
-  
+
   // Variables
   double u_p, u_i, u_d;
-  double error = 0; 
+  double error = 0;
   double errorSum = 0;
   double errorPrev = 0;
   double u = 0;
   int maxSpeed = 150;
   int minSpeed = 8;
   double toleratedError = 0.4;
-  
+
   // Time variables
   double t = 0;
   double t0 = 0;
@@ -65,7 +68,7 @@ void PID(double sp, Motor& motor) {
   u_p = error*k_p; // proportional gain
   u_i = (errorSum + error*dt)*(1/k_i); // integral gain
   u_d = ((error-errorPrev)/dt)*k_d; // differential gain
-  u = u_p + u_i; // u_d; 
+  u = u_p + u_i; // u_d;
 
   // Part 3: Logic to drive motor and stop
   if (error >= toleratedError || error <= -toleratedError) {
@@ -101,7 +104,7 @@ void PID(double sp, Motor& motor) {
   Serial.print(" | error: ");
   Serial.println(error);
   */
-  
+
   t0 = t;
-  
+
 }
